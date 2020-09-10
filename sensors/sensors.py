@@ -1,7 +1,6 @@
 import uuid
 import random
 from typing import TypedDict
-from abc import ABC
 from datetime import datetime
 
 
