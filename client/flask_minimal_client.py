@@ -15,7 +15,8 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/<name>')
 def hello_world(name=None):
-    return render_template('test.html', name=name)
+    bar = create_plot()
+    return render_template('test.html', name=name, plot=bar)
 
 def create_plot():
     N = 40
