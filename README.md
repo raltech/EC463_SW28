@@ -8,8 +8,9 @@ description of feature
 ## How to run
 how to install and run
 
-## Ackknowledgement
-any open source library
-- atlastk
-- flask
-- httplib2
+## Acknowledgement
+used library and frameworks
+- atlastk (removed)
+- flask (server and client)
+- httplib2 (client)
+- plotly (client)
