@@ -13,10 +13,10 @@ import pandas as pd
 app = Flask(__name__)
 
 @app.route('/')
-@app.route('/<name>')
-def hello_world(name=None):
-    bar = create_plot()
-    return render_template('test.html', name=name, plot=bar)
+def home():
+    bar1 = create_plot()
+    bar2 = create_plot()
+    return render_template('home.html', plot1=bar1, plot2=bar2)
 
 def create_plot():
     N = 40
@@ -32,13 +32,20 @@ def create_plot():
     ]
 
     graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
-
     return graphJSON
 
-@app.route('/login')
-def sso_login():
-    # sso login
-    pass
+@app.route('/contact')
+def contact():
+    return render_template("contact.html")
+
+@app.route('/sensor_management')
+def sensor_management():
+    return render_template("management.html")
+
+# @app.route('/<name>')
+# def hello_world(name=None):
+#     bar = create_plot()
+#     return render_template('test.html', name=name, plot=bar)
 
 if __name__ == '__main__':
     app.run()
