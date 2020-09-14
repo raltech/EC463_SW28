@@ -16,6 +16,7 @@ app = Flask(__name__)
 def home():
     bar1 = create_plot()
     bar2 = create_plot()
+    bar3 = create_plot()
     return render_template('home.html', plot1=bar1, plot2=bar2, plot3=bar3)
 
 def create_plot():
