@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+</head>
+<body>
+    {% extends "layout.html" %}
+    {% block content %}
+    <div class="home">
+        <h1>Real Time Sensor Monitoring </h1>
+        <div class="sensor1">
+            <p>Sensor 1</p>
+            <div class="chart" id="bargraph">
+                <script>
+                    var graphs = {{plot1 | safe}};
+                    Plotly.plot('bargraph',graphs,{});
+                </script>
+            </div>
+        </div>
+        
+        <div class="sensor2">
+            <p>Sensor 2</p>
+            <div class="chart2" id="bargraph2">
+                <script>
+                    var graphs2 = {{plot2 | safe}};
+                    Plotly.plot('bargraph2',graphs2,{});
+                </script>
+            </div>
+        </div>
+   </div>
+   {% endblock %}
+</body>
+</html>
