@@ -16,7 +16,7 @@ app = Flask(__name__)
 def home():
     bar1 = create_plot()
     bar2 = create_plot()
-    return render_template('home.html', plot1=bar1, plot2=bar2)
+    return render_template('home.html', plot1=bar1, plot2=bar2, plot3=bar3)
 
 def create_plot():
     N = 40
@@ -25,7 +25,7 @@ def create_plot():
     df = pd.DataFrame({'x': x, 'y': y}) # creating a sample dataframe
 
     data = [
-        go.Bar(
+        go.Scatter(
             x=df['x'], # assign x as the dataframe column 'x'
             y=df['y']
         )
