@@ -2,3 +2,7 @@ body {
 	background: #659DBD;
 	color: white;
 }
+
+a {
+	color: inherit;
+}
