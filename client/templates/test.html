@@ -1,12 +1,14 @@
 <!doctype html>
 <html>
-<head lang="en">
+{% extends "layout.html" %}
+{% block content %}
+<!-- <head lang="en">
   <meta charset="UTF-8">
   <title>EC463 SW Miniproject: Home Sensor</title>
   <link rel="stylesheet" href='../static/style.css'/>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-</head>
+</head> -->
 <body>
   {% if name %}
     <h1>Welcome to Home Monitor Dashboard, {{ name }}!</h1>
@@ -61,4 +63,5 @@
   <!-- <script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/plots.js') }}"></script> -->
 </body>
+{% endblock %}
 </html>
