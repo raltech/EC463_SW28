@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Sensor Management</title>
 </head>
+
 <body>
     {% extends "layout.html" %}
     {% block content %}
     <div class="management">
         <h2>Manage Your Sensors</h2>
         <p>add/delete sensors at client side will affect server database in real time</p>
-   </div>
-   {% endblock %}
+        <input type=text placeholder="Username" />
+        <button>Submit</button>
+    </div>
+    {% endblock %}
 </body>
+
 </html>

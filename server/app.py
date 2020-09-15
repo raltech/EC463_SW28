@@ -11,10 +11,10 @@ from plotting import create_plot
 app = Flask(__name__)
 
 
-@app.route('/test123', methods=['GET'])
-def home():
+@app.route('/users/<string:user_id>', methods=['GET'])
+def home(user_id: str):
     conn = db.getConnection()
-    sensors = db.getSensors(conn, "quinn")
+    sensors = db.getSensors(conn, user_id)
     plots = list(map(lambda x: create_plot(x[0], x[1]), sensors))
     names = list(map(lambda x: x[1], sensors))
     sensorTypes = list(map(lambda x: x[0], sensors))
@@ -29,7 +29,7 @@ def contact():
 
 @app.route('/sensor_management')
 def sensor_management():
-    return render_template("management.html")
+    return render_template("sensor_management.html")
 
 
 """
@@ -41,9 +41,12 @@ def get_sensors(user_id: str):
     print(db.getSensors(conn, user_id))
     return jsonify(success=True)
 
+"""
+
 
 @app.route('/user/<string:user_id>/sensors', methods=['POST'])
 def add_sensor(user_id: str):
+    print("yoooo")
     conn = db.getConnection()
     try:
         db.addSensor(
@@ -52,8 +55,6 @@ def add_sensor(user_id: str):
         return "Need to supply sensorType: {'temperature', 'humidity} and name", 400
     return jsonify(success=True)
 
-
-"""
 
 if __name__ == "__main__":
     app.run()
