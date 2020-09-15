@@ -1,7 +1,38 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import db
 
+import plotly
+import plotly.graph_objs as go
+import json
+import numpy as np
+import pandas as pd
+from plotting import create_plot
+
 app = Flask(__name__)
+
+
+@app.route('/test123', methods=['GET'])
+def home():
+    conn = db.getConnection()
+    sensors = db.getSensors(conn, "quinn")
+    plots = list(map(lambda x: create_plot(x[0], x[1]), sensors))
+    names = list(map(lambda x: x[1], sensors))
+    sensorTypes = list(map(lambda x: x[0], sensors))
+    plotInfo = zip(plots, names, sensorTypes)
+    return render_template('home.html', plotInfo=plotInfo)
+
+
+@app.route('/contact')
+def contact():
+    return render_template("contact.html")
+
+
+@app.route('/sensor_management')
+def sensor_management():
+    return render_template("management.html")
+
+
+"""
 
 
 @app.route('/user/<string:user_id>/sensors', methods=['GET'])
@@ -21,6 +52,8 @@ def add_sensor(user_id: str):
         return "Need to supply sensorType: {'temperature', 'humidity} and name", 400
     return jsonify(success=True)
 
+
+"""
 
 if __name__ == "__main__":
     app.run()

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+</head>
+
+<body>
+    {% extends "layout.html" %}
+    {% block content %}
+    <div class="home">
+        <h2>Real Time Sensor Monitoring </h2>
+        {% for plot in plotInfo %}
+        <div class="sensor">
+            {% set test = 'bargraph' + loop.index|string %}
+            <div class="chart" id={{test}}>
+                <script>
+                    var test123 = "blah";
+                    var layout = {
+                        title: {
+                            text: {{ plot[1] | tojson}}
+                        },
+                    xaxis: {
+                        title: {
+                            text: "time"
+                        }
+                    },
+                    yaxis: {
+                        title: {
+                            text: {{ plot[2] | tojson}}
+                        }
+                    },
+                    }
+                    Plotly.plot({{ test }}, {{ plot[0] | safe }}, layout);
+                </script>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</body>
+
+</html>
