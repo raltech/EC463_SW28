@@ -13,7 +13,7 @@ import urllib.request
 
 app = Flask(__name__)
 
-API_KEY = '6f03dc86e0326463b155da387638eb29'
+API_KEY = 'put your api here'
 
 def tocelcius(temp):
     return str(round(float(temp) - 273.16,2))
