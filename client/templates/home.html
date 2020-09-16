@@ -9,35 +9,16 @@
     {% block content %}
     <div class="home">
         <h2>Real Time Sensor Monitoring </h2>
-        <div class="sensor1">
-            <p>Sensor 1</p>
-            <div class="chart" id="bargraph">
+        {% for i in range(0, len) %}
+            <p>Sensor {{i}}</p>       
+            <div class="chart" id="bargraph{{i}}">
                 <script>
-                    var graphs = {{plot1 | safe}};
-                    Plotly.plot('bargraph',graphs,{});
+                    // var idv_plot = {{ plot[i] }};
+                    var graphs = {{plot[i] | safe}};
+                    Plotly.plot('bargraph{{i}}',graphs,{});
                 </script>
             </div>
-        </div>
-        
-        <div class="sensor2">
-            <p>Sensor 2</p>
-            <div class="chart2" id="bargraph2">
-                <script>
-                    var graphs2 = {{plot2 | safe}};
-                    Plotly.plot('bargraph2',graphs2,{});
-                </script>
-            </div>
-        </div>
-
-        <div class="sensor3">
-            <p>Sensor 3</p>
-            <div class="chart3" id="bargraph3">
-                <script>
-                    var graphs3 = {{plot3 | safe}};
-                    Plotly.plot('bargraph3',graphs3,{});
-                </script>
-            </div>
-        </div>
+        {% endfor %}
    </div>
    {% endblock %}
 </body>
