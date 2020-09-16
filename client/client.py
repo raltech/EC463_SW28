@@ -142,7 +142,15 @@ def contact():
 
 @app.route('/sensor_management')
 def sensor_management():
-    return render_template("management.html")
+    return render_template("sensor_management.html")
+
+@app.route('/profile')
+def profile():
+    if google_auth.is_logged_in():
+        user_info = google_auth.get_user_info()
+        return render_template("profile.html", user_info=user_info)
+    else:
+        return render_template("welcome.html")
 
 if __name__ == '__main__':
     app.run()
