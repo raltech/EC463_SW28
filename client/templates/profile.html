@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Profile</title>
+</head>
+<body>
+    {% extends "layout.html" %}
+    {% block content %}
+    <div class="profile">
+        <h3>Hello {{user_info['given_name']}}</h3>
+        <p>{{ user_info }}</p>
+    </div>
+   {% endblock %}
+</body>
+</html>
