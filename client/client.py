@@ -25,7 +25,7 @@ app.secret_key = os.environ.get("FN_FLASK_SECRET_KEY", default=False)
 
 app.register_blueprint(google_auth.app)
 
-API_KEY = '6f03dc86e0326463b155da387638eb29' # openweathermap
+API_KEY = '' # openweathermap
 
 def tocelcius(temp):
     return str(round(float(temp) - 273.16,2))
