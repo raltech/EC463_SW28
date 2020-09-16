@@ -17,7 +17,8 @@ def home():
     bar1 = create_plot()
     bar2 = create_plot()
     bar3 = create_plot()
-    return render_template('home.html', plot1=bar1, plot2=bar2, plot3=bar3)
+    bar = [bar1, bar2, bar3]
+    return render_template('home.html', len=len(bar), plot=bar)
 
 def create_plot():
     N = 40
@@ -42,11 +43,6 @@ def contact():
 @app.route('/sensor_management')
 def sensor_management():
     return render_template("management.html")
-
-# @app.route('/<name>')
-# def hello_world(name=None):
-#     bar = create_plot()
-#     return render_template('test.html', name=name, plot=bar)
 
 if __name__ == '__main__':
     app.run()
