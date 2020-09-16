@@ -20,7 +20,8 @@ how to install and run
 
 ## Acknowledgement
 used library and frameworks
-- atlastk (removed)
 - flask (server and client)
 - httplib2 (client)
 - plotly (client)
+- openweathermap.org
+- atlastk (removed)
