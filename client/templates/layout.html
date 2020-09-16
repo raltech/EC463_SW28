@@ -53,13 +53,13 @@
     <div class="sidenav">
         <a href="{{ url_for('home') }}">About</a>
         <a href="{{ url_for('sensor_management') }}">Sensors</a>
-        <a href="">Profile</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
         <a href="{{ url_for('contact') }}">Contact</a>
         <a href="/google/logout">Logout</a>
     </div>
 
     <div class="main">
-        <h1 class="logo">Home Sensor</h1>
+        <!-- <h1 class="logo">Home Sensor</h1> -->
         {% block content %}
         {% endblock %}
     </div>
