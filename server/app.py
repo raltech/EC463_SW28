@@ -11,7 +11,7 @@ from plotting import create_plot
 app = Flask(__name__)
 
 
-@app.route('/users/<string:user_id>', methods=['GET'])
+@app.route('/user/<string:user_id>', methods=['GET'])
 def home(user_id: str):
     conn = db.getConnection()
     sensors = db.getSensors(conn, user_id)
@@ -46,7 +46,6 @@ def get_sensors(user_id: str):
 
 @app.route('/user/<string:user_id>/sensors', methods=['POST'])
 def add_sensor(user_id: str):
-    print("yoooo")
     conn = db.getConnection()
     try:
         db.addSensor(

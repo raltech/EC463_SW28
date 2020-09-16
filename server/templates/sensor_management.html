@@ -1,16 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Sensor Management</title>
 </head>
+
+<script>
+    function test() {
+        let username = document.getElementById("username").value;
+        let sensorName = document.getElementById("sensorName").value;
+        let sensorType = document.getElementById("sensorType").value;
+
+        fetch('user/' + username + '/sensors', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sensorType: sensorType, name: sensorName })
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.success) {
+                    window.location.href = '/user/' + username;
+                } else {
+                    alert("Something went wrong. Sorry!")
+                }
+            })
+
+    }
+</script>
+
+
 <body>
     {% extends "layout.html" %}
     {% block content %}
     <div class="management">
         <h2>Manage Your Sensors</h2>
         <p>add/delete sensors at client side will affect server database in real time</p>
-   </div>
-   {% endblock %}
+        <input id="sensorName" type="text" placeholder="Sensor Name" />
+        <input id="username" type="text" placeholder="Username" />
+        <select id="sensorType">
+            <option value="temperature">Temperature</option>
+            <option value="humidity">Humidity</option>
+        </select>
+        <button onclick="test()">hello</button>
+    </div>
+    {% endblock %}
 </body>
+
 </html>
