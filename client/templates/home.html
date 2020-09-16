@@ -7,6 +7,10 @@
 <body>
     {% extends "layout.html" %}
     {% block content %}
+    <div class="profile">
+        <h3>Hello {{user_info['given_name']}}</h3>
+        <p>{{ user_info }}</p>
+    </div>
     <div class="weather">
         <h3>Current Weather</h3>
         {% if data.country_code and data.coordinate and data.temp and data.pressure and data.humidity %}
