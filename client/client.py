@@ -10,24 +10,22 @@ import json
 import numpy as np
 import pandas as pd
 import urllib.request
-
 import functools
 import os
+import geocoder
 
+# google oauth
 from authlib.client import OAuth2Session
 import google.oauth2.credentials
 import googleapiclient.discovery
-
 import google_auth
-
-import geocoder
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FN_FLASK_SECRET_KEY", default=False)
-
 app.register_blueprint(google_auth.app)
 
-API_KEY = 'xxxxx' # openweathermap
+# openweathermap
+API_KEY = ''
 
 def tocelcius(temp):
     return str(round(float(temp) - 273.16,2))
@@ -36,10 +34,6 @@ def tocelcius(temp):
 def welcome():
     if google_auth.is_logged_in():
         user_info = google_auth.get_user_info()
-        # if request.method == 'POST':
-        #     city = request.form['city']
-        # else:
-        #     city = 'boston'
 
         g = geocoder.ip('me')
         lat = str(np.floor(g.latlng[0]))
