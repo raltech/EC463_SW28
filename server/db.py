@@ -22,13 +22,35 @@ def addSensor(conn: sqlite3.Connection, user_id: str, sensor_type: str, name: st
 
 
 def getSensors(conn: sqlite3.Connection, user_id: str):
+    createTableStatement = """
+    CREATE TABLE IF NOT EXISTS sensors (user_id text, sensor_type text, name text);
+    """
     getSensorsStatement = """
     SELECT sensor_type, name FROM sensors WHERE user_id=?;
     """
 
     c = conn.cursor()
+    c.execute(createTableStatement)
     c.execute(getSensorsStatement, (user_id,))
     rows = c.fetchall()
     conn.commit()
     c.close()
     return rows
+
+def deleteSensor(conn: sqlite3.Connection, user_id: str, name: str):
+    createTableStatement = """
+    CREATE TABLE IF NOT EXISTS sensors (user_id text, sensor_type text, name text);
+    """
+    deleteSensorStatement = """
+    DELETE FROM sensors WHERE user_id=? AND name=?
+    """
+
+    print("HELLO WORLD")
+    print(user_id)
+    print(name)
+
+    c = conn.cursor()
+    c.execute(createTableStatement)
+    c.execute(deleteSensorStatement, (user_id,name))
+    conn.commit()
+    c.close()
