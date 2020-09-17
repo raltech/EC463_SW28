@@ -11,15 +11,15 @@
         <h2>Welcome to Home Sensor, {{user_info['given_name']}}!</h2>
     </div>
     <div class="weather">
-        <h3>Current Weather</h3>
+        <h3>Current Weather Around You</h3>
         {% if data.country_code and data.coordinate and data.temp and data.pressure and data.humidity %}
         <div class="col-md-6 col-md-offset-3">
-        <p>country code : {{data.country_code}}</p>
-        <p>city name : {{data.cityname}}</p>
-        <p>coordinate : {{data.coordinate}}</p>
-        <p>temp (in celcius) : {{data.temp_cel}}</p>
-        <p>pressure : {{data.pressure}} mb</p>
-        <p>humidity : {{data.humidity}} %</p>
+        <!-- <p>country code : {{data.country_code}}</p> -->
+        <p>Real-Time Weather Info in {{data.cityname}}</p>
+        <!-- <p>coordinate : {{data.coordinate}}</p> -->
+        <p>Temperature : {{data.temp_cel}}</p>
+        <p>Pressure : {{data.pressure}} mb</p>
+        <p>Humidity : {{data.humidity}} %</p>
         </div>
         {% endif %}
     </div>
