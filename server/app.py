@@ -59,7 +59,7 @@ def home():
             "country_code": str(list_of_data['sys']['country']),
             "coordinate": str(list_of_data['coord']['lon']) + ' ' + str(list_of_data['coord']['lat']),
             "temp": str(list_of_data['main']['temp']) + 'k',
-            "temp_cel": tocelcius(list_of_data['main']['temp']) + 'C',
+            "temp_cel": tocelcius(list_of_data['main']['temp']) + ' Celcius',
             "pressure": str(list_of_data['main']['pressure']),
             "humidity": str(list_of_data['main']['humidity']),
             "cityname":g.address,
