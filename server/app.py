@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask_socketio import SocketIO
 import db
+import sensors
 
+import random
 import plotly
 import plotly.graph_objs as go
 import json
@@ -20,8 +23,9 @@ import google_auth
 app = Flask(__name__)
 app.secret_key = os.environ.get("FN_FLASK_SECRET_KEY", default=False)
 app.register_blueprint(google_auth.app)
+socketio = SocketIO(app)
 
-API_KEY = '' # openweathermap
+API_KEY = os.environ.get("WEATHER_API_KEY", default=False) # openweathermap
 
 def tocelcius(temp):
     return str(round(float(temp) - 273.16,2))
@@ -116,6 +120,14 @@ def delete_sensor(user_id: str):
     db.deleteSensor(conn, user_id, request.json['name'], request.json['sensorType'])
     return jsonify(success=True)
 
+@socketio.on('test')
+def test(payload, methods=["GET","POST"]):
+    print("YOYOYOOYOYOY")
+
+@socketio.on('getVal')
+def sendVal(payload, methods=["GET", "POST"]):
+    x = sensors.Sensor(payload['sensorType'], payload['previousValue'])
+    socketio.emit(payload['name'] + payload['sensorType'], x.getReading()['value'])
 
 if __name__ == "__main__":
-    app.run()
+    socketio.run()

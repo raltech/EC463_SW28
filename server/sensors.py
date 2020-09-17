@@ -12,12 +12,12 @@ class SensorReading(TypedDict):
 
 
 class Sensor:
-    def __init__(self, sensorType: str):
+    def __init__(self, sensorType: str, initialValue = None):
         if sensorType != "temperature" and sensorType != "humidity":
             raise Exception(
                 'sensorType must be in {"temperature", "humidity"}')
 
-        self.lastValue: float = None
+        self.lastValue: float = float(initialValue) if initialValue is not None else None
         self.sensorType: str = sensorType
         self.sensorId: str = str(uuid.uuid4())
 
