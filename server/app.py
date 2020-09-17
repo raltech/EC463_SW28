@@ -29,14 +29,15 @@ def tocelcius(temp):
 @app.route('/')
 def welcome():
     if google_auth.is_logged_in():
-        return redirect(url_for('home', user_id=google_auth.get_user_info()['id']))
+        return redirect(url_for('home'))
     return render_template('welcome.html',)
 
-@app.route('/user/<string:user_id>', methods=['GET', 'POST'])
-def home(user_id: str):
+@app.route('/home', methods=['GET', 'POST'])
+def home():
     if not google_auth.is_logged_in():
         return redirect(url_for('welcome'))
 
+    user_id = google_auth.get_user_info()['id']
     if request.method == 'POST':
         city = request.form['city']
     else:
@@ -56,7 +57,7 @@ def home(user_id: str):
         "temp_cel": tocelcius(list_of_data['main']['temp']) + 'C',
         "pressure": str(list_of_data['main']['pressure']),
         "humidity": str(list_of_data['main']['humidity']),
-        "cityname":str(city),
+        "cityname":str(city).title(),
     }
 
     conn = db.getConnection()
@@ -77,6 +78,14 @@ def contact():
 def sensor_management():
     id = google_auth.get_user_info()['id']
     return render_template("sensor_management.html", user_id = id)
+
+@app.route('/profile')
+def profile():
+    if google_auth.is_logged_in():
+        user_info = google_auth.get_user_info()
+        return render_template("profile.html", user_info=user_info)
+    else:
+        return redirect(url_for('welcome'))
 
 
 """
@@ -104,7 +113,7 @@ def add_sensor(user_id: str):
 @app.route('/user/<string:user_id>/sensors/delete', methods=['POST'])
 def delete_sensor(user_id: str):
     conn = db.getConnection()
-    db.deleteSensor(conn, user_id, request.json['name'])
+    db.deleteSensor(conn, user_id, request.json['name'], request.json['sensorType'])
     return jsonify(success=True)
 
 

@@ -37,20 +37,17 @@ def getSensors(conn: sqlite3.Connection, user_id: str):
     c.close()
     return rows
 
-def deleteSensor(conn: sqlite3.Connection, user_id: str, name: str):
+def deleteSensor(conn: sqlite3.Connection, user_id: str, name: str, sensorType: str):
     createTableStatement = """
     CREATE TABLE IF NOT EXISTS sensors (user_id text, sensor_type text, name text);
     """
     deleteSensorStatement = """
-    DELETE FROM sensors WHERE user_id=? AND name=?
+    DELETE FROM sensors WHERE user_id=? AND name=? AND sensor_type=?
     """
 
-    print("HELLO WORLD")
-    print(user_id)
-    print(name)
-
+    print(name, sensorType)
     c = conn.cursor()
     c.execute(createTableStatement)
-    c.execute(deleteSensorStatement, (user_id,name))
+    c.execute(deleteSensorStatement, (user_id,name,sensorType))
     conn.commit()
     c.close()
