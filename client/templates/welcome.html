@@ -1,2 +1,28 @@
-<h1>Welcome to Home Sensor</h1>
-<p><a href="/google/login">Login with Google Account</a></p>
+<html>
+<head>
+    <style>
+    .btn-google {
+        border-radius: 1.5%;        
+        background: white;
+        border: thin solid gray;
+        display:inline-block;
+        line-height:60px;
+        width: 340px;
+        text-align: center;
+    }
+
+    body {
+        padding-top: 200px;
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Home Sensor</h1>
+    <a style="color: inherit; text-decoration: none;" href="/google/login" class="btn-google">
+        <img src="{{url_for('static', filename='icon-google.png')}}" alt="GOOGLE" align="center" 
+        style="margin-right: 3px; margin-bottom: 4px;">
+        Sign in with Google
+    </a>
+</body>
+</html>
