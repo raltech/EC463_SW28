@@ -20,12 +20,14 @@ import googleapiclient.discovery
 
 import google_auth
 
+import geocoder
+
 app = Flask(__name__)
 app.secret_key = os.environ.get("FN_FLASK_SECRET_KEY", default=False)
 
 app.register_blueprint(google_auth.app)
 
-API_KEY = '' # openweathermap
+API_KEY = 'xxxxx' # openweathermap
 
 def tocelcius(temp):
     return str(round(float(temp) - 273.16,2))
@@ -34,25 +36,24 @@ def tocelcius(temp):
 def welcome():
     if google_auth.is_logged_in():
         user_info = google_auth.get_user_info()
-        #     return '<div>You are currently logged in as ' + user_info['given_name'] + '<div><pre>' + json.dumps(user_info, indent=4) + "</pre>"
+        # if request.method == 'POST':
+        #     city = request.form['city']
+        # else:
+        #     city = 'boston'
 
-        """
-        Returns page prompting for a zip code or containing weather for a specific zip code
-        :return:
-        """
-        if request.method == 'POST':
-            city = request.form['city']
-        else:
-            city = 'boston'
+        g = geocoder.ip('me')
+        lat = str(np.floor(g.latlng[0]))
+        lon = str(np.floor(g.latlng[1]))
 
         # source contain json data from api
         try:
-            source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid='+API_KEY).read()
+            # source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid='+API_KEY).read()
+            source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid='+API_KEY).read()
         except:
             city = 'boston (default)'
             source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=boston&appid='+API_KEY).read()
+        
         # converting json data to dictionary
-
         list_of_data = json.loads(source)
 
         # data for variable list_of_data
@@ -60,10 +61,10 @@ def welcome():
             "country_code": str(list_of_data['sys']['country']),
             "coordinate": str(list_of_data['coord']['lon']) + ' ' + str(list_of_data['coord']['lat']),
             "temp": str(list_of_data['main']['temp']) + 'k',
-            "temp_cel": tocelcius(list_of_data['main']['temp']) + 'C',
+            "temp_cel": tocelcius(list_of_data['main']['temp']) + ' Celcius',
             "pressure": str(list_of_data['main']['pressure']),
             "humidity": str(list_of_data['main']['humidity']),
-            "cityname":str(city),
+            "cityname":g.address,
         }
 
         bar1 = create_plot()
