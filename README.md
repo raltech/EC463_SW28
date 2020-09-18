@@ -3,9 +3,9 @@ This repo is for EC463 Mini software project.
 We (Hayato Nakamura and Quinn Meurer) are implementing Home Sensor application using mainly Python/Flask and some JavaScript.
 
 ## Home Sensor
-- [Live Demo](https://sw-miniproject.herokuapp.com/)  
+- **[Live Demo](https://sw-miniproject.herokuapp.com/)**  
   - Our app is hosted using Heroku platform, and you can access it by clicking the link above.
-- [Video Demo](https://youtu.be/r9fRvjjXQ_k)
+- **[Video Demo](https://youtu.be/r9fRvjjXQ_k)**
   - You can watch video demonstration of our app by clicking the link above.
 
 #### Application Features
@@ -76,6 +76,8 @@ With the default setting, you should be able to access the web app by going to h
   - Users can easily add/delete sensors within app
 - [x] Multiple temperature or humidity sources can be associated with a user
   - Every sensors are associated with unique user id obtained from their Google account.
+
+Status: all test passed
 
 ## Acknowledgement
 Used library and frameworks
