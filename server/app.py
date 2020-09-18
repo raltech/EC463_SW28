@@ -42,8 +42,11 @@ def home():
     if not google_auth.is_logged_in():
         return redirect(url_for('welcome'))
     else:
-        visitor_ip = jsonify({'ip': request.remote_addr}), 200
-        g = geocoder.ip(visitor_ip)
+        # visitor_ip = jsonify({'ip': request.remote_addr}), 200
+        # print('*****************')
+        # print(request.remote_addr)
+        # print(visitor_ip)
+        g = geocoder.ip(request.remote_addr)
         lat = str(np.floor(g.latlng[0]))
         lon = str(np.floor(g.latlng[1]))
 
