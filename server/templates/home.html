@@ -50,10 +50,10 @@
         {% if data.country_code and data.coordinate and data.temp and data.pressure and data.humidity %}
         <h3>Current Weather in {{data.cityname}}, {{data.country_code}}</h3>
         <div class="col-md-6 col-md-offset-3">
-            <p>coordinate : {{data.coordinate}}</p>
-            <p>temp (in celcius) : {{data.temp_cel}}</p>
-            <p>pressure : {{data.pressure}} mb</p>
-            <p>humidity : {{data.humidity}} %</p>
+            <p>Coordinate : {{data.coordinate}}</p>
+            <p>Temperature : {{data.temp_cel}}</p>
+            <p>Pressure : {{data.pressure}} mb</p>
+            <p>Humidity : {{data.humidity}} %</p>
             </div>
         {% endif %}
     </div>

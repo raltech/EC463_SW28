@@ -13,6 +13,7 @@ from plotting import create_plot
 import urllib.request
 import functools
 import os
+import geocoder
 
 from authlib.client import OAuth2Session
 import google.oauth2.credentials
@@ -40,37 +41,43 @@ def welcome():
 def home():
     if not google_auth.is_logged_in():
         return redirect(url_for('welcome'))
-
-    user_id = google_auth.get_user_info()['id']
-    if request.method == 'POST':
-        city = request.form['city']
     else:
-        city = 'boston'
+        # visitor_ip = jsonify({'ip': request.remote_addr}), 200
+        # print('*****************')
+        # print(request.remote_addr)
+        # print(visitor_ip)
+        try:
+            g = geocoder.ipinfo(request.remote_addr)
+        except:
+            g = geocoder.ipinfo('me')
+        lat = str(np.floor(g.latlng[0]))
+        lon = str(np.floor(g.latlng[1]))
 
-    try:
-        source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid='+API_KEY).read()
-    except:
-        city = 'boston (default)'
-        source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=boston&appid='+API_KEY).read()
+        user_id = google_auth.get_user_info()['id']
 
-    list_of_data = json.loads(source)
-    data = {
-        "country_code": str(list_of_data['sys']['country']),
-        "coordinate": str(list_of_data['coord']['lon']) + ' ' + str(list_of_data['coord']['lat']),
-        "temp": str(list_of_data['main']['temp']) + 'k',
-        "temp_cel": tocelcius(list_of_data['main']['temp']) + 'C',
-        "pressure": str(list_of_data['main']['pressure']),
-        "humidity": str(list_of_data['main']['humidity']),
-        "cityname":str(city).title(),
-    }
+        try:
+            source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid='+API_KEY).read()
+        except:
+            source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=boston&appid='+API_KEY).read()
 
-    conn = db.getConnection()
-    sensors = db.getSensors(conn, user_id)
-    plots = list(map(lambda x: create_plot(x[0], x[1]), sensors))
-    names = list(map(lambda x: x[1], sensors))
-    sensorTypes = list(map(lambda x: x[0], sensors))
-    plotInfo = zip(plots, names, sensorTypes)
-    return render_template('home.html', plotInfo=plotInfo, data=data, user_info=google_auth.get_user_info())
+        list_of_data = json.loads(source)
+        data = {
+            "country_code": str(list_of_data['sys']['country']),
+            "coordinate": str(list_of_data['coord']['lon']) + ' ' + str(list_of_data['coord']['lat']),
+            "temp": str(list_of_data['main']['temp']) + 'k',
+            "temp_cel": tocelcius(list_of_data['main']['temp']) + ' Celcius',
+            "pressure": str(list_of_data['main']['pressure']),
+            "humidity": str(list_of_data['main']['humidity']),
+            "cityname":g.address,
+        }
+
+        conn = db.getConnection()
+        sensors = db.getSensors(conn, user_id)
+        plots = list(map(lambda x: create_plot(x[0], x[1]), sensors))
+        names = list(map(lambda x: x[1], sensors))
+        sensorTypes = list(map(lambda x: x[0], sensors))
+        plotInfo = zip(plots, names, sensorTypes)
+        return render_template('home.html', plotInfo=plotInfo, data=data, user_info=google_auth.get_user_info())
 
 
 @app.route('/contact')
