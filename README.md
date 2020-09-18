@@ -8,7 +8,7 @@ We (Hayato Nakamura and Quinn Meurer) are implementing Home Sensor application u
 - [Video Demo](https://youtu.be/r9fRvjjXQ_k)
   - You can watch video demonstration of our app by clicking the link above.
 
-### Application Features
+#### Application Features
 - **Client side**
   - Single Sign On for account management
   - Access to the server database to register new sensors and delete existing sensors
@@ -63,6 +63,17 @@ cd server
 ```
 in your terminal to run our app.
 With the default setting, you should be able to access the web app by going to http://127.0.0.1:8040 in your browser.
+
+## Testing Application
+- [x] Support Google SSO
+- [x] Receive and display temperature and humidity from a sensor
+- [x] Plot historical sensor data
+- [x] Users have access and can see the weather information for the their location
+- [x] Multiple people can access the app
+- [x] Multiple sources of temperature and humidity
+  - Users can easily add/delete sensors within app
+- [x] Multiple temperature or humidity sources can be associated with a user
+  - Every sensors are associated with unique user id obtained from their Google account.
 
 ## Acknowledgement
 Used library and frameworks
