@@ -4,7 +4,7 @@ We (Hayato Nakamura and Quinn Meurer) are implementing Home Sensor application u
 
 ## Home Sensor
 
-[Live Demo](https://sw-miniproject.herokuapp.com/)
+[Live Demo](https://sw-miniproject.herokuapp.com/)  
 [Video Demo](https://youtu.be/r9fRvjjXQ_k)
 
 ### Client side
