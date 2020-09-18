@@ -4,6 +4,9 @@ We (Hayato Nakamura and Quinn Meurer) are implementing Home Sensor application u
 
 ## Home Sensor
 
+[Live Demo](https://sw-miniproject.herokuapp.com/)
+[Video Demo](https://youtu.be/r9fRvjjXQ_k)
+
 ### Client side
 - Single Sign On for account management
 - Access to the server database to register new sensors and delete existing sensors
