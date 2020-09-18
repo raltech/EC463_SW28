@@ -9,6 +9,7 @@ We (Hayato Nakamura and Quinn Meurer) are implementing Home Sensor application u
   - You can watch video demonstration of our app by clicking the link above.
 
 ### Application Features
+
 #### Client side
 - Single Sign On for account management
 - Access to the server database to register new sensors and delete existing sensors
