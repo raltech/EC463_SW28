@@ -46,7 +46,10 @@ def home():
         # print('*****************')
         # print(request.remote_addr)
         # print(visitor_ip)
-        g = geocoder.ip(request.remote_addr)
+        try:
+            g = geocoder.ipinfo(request.remote_addr)
+        except:
+            g = geocoder.ipinfo('me')
         lat = str(np.floor(g.latlng[0]))
         lon = str(np.floor(g.latlng[1]))
 
