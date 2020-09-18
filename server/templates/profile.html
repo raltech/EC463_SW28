@@ -11,6 +11,11 @@
         <h3>Hello {{user_info['given_name']}}</h3>
         <p>Name: {{user_info['name']}}</p>
         <p>Email: {{user_info['email']}}</p>
+        <form action="{{url_for('location')}}" method="POST"> 
+            Update Current City Location: <input type="text" name="city_id"> 
+            <input type="submit" value="update"> 
+        </form> 
+        <p>City: {{city_id}}</p>
         <img src="{{user_info['picture']}}" height=200 width=200/>
     </div>
    {% endblock %}
