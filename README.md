@@ -26,7 +26,7 @@ We (Hayato Nakamura and Quinn Meurer) are implementing Home Sensor application u
   - establish websocket connection with client to communicate stream of sensor data in real time
 
 ## How to run
-**Note: our app is hosted [here](https://sw-miniproject.herokuapp.com/) so that you can play with it without installing**
+**Note: our app is hosted [here](https://sw-miniproject.herokuapp.com/) so that you can play with it without installing**   
 After cloning our repo into your local computer, install necessary libraries listed in requirement.txt.
 Then, create a run.sh file under server folder with the following content:
 ```
