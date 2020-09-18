@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask import Flask, jsonify, request, render_template, redirect, url_for, session
 from flask_socketio import SocketIO
 import db
 import sensors
@@ -42,22 +42,16 @@ def home():
     if not google_auth.is_logged_in():
         return redirect(url_for('welcome'))
     else:
-        # visitor_ip = jsonify({'ip': request.remote_addr}), 200
-        # print('*****************')
-        # print(request.remote_addr)
-        # print(visitor_ip)
-        try:
-            g = geocoder.ipinfo(request.remote_addr)
-        except:
-            g = geocoder.ipinfo('me')
-        lat = str(np.floor(g.latlng[0]))
-        lon = str(np.floor(g.latlng[1]))
 
+        try:
+            city_id = session['city_id']
+        except:
+            city_id = 'Boston'
         user_id = google_auth.get_user_info()['id']
-
         try:
-            source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid='+API_KEY).read()
+            source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q='+city_id+'&appid='+API_KEY).read()
         except:
+            city_id = 'Boston (default)'
             source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=boston&appid='+API_KEY).read()
 
         list_of_data = json.loads(source)
@@ -68,7 +62,7 @@ def home():
             "temp_cel": tocelcius(list_of_data['main']['temp']) + ' Celcius',
             "pressure": str(list_of_data['main']['pressure']),
             "humidity": str(list_of_data['main']['humidity']),
-            "cityname":g.address,
+            "cityname":city_id,
         }
 
         conn = db.getConnection()
@@ -94,9 +88,19 @@ def sensor_management():
 def profile():
     if google_auth.is_logged_in():
         user_info = google_auth.get_user_info()
-        return render_template("profile.html", user_info=user_info)
+        try:
+            city_id = session['city_id']
+        except:
+            city_id = 'Boston (default)'
+        return render_template("profile.html", user_info=user_info, city_id=city_id)
     else:
         return redirect(url_for('welcome'))
+
+@app.route('/location', methods=["POST"])
+def location():
+    session['city_id'] = request.form["city_id"]
+    user_info = google_auth.get_user_info()
+    return render_template("profile.html", user_info=user_info, city_id=session['city_id'])
 
 
 """
