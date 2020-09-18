@@ -5,7 +5,7 @@ We (Hayato Nakamura and Quinn Meurer) are implementing Home Sensor application u
 ## Home Sensor
 - **[Live Demo](https://sw-miniproject.herokuapp.com/)**  
   - Our app is hosted using Heroku platform, and you can access it by clicking the link above.
-- **[Video Demo](https://youtu.be/r9fRvjjXQ_k)**
+- **[Video Demo](https://youtu.be/Nnqivfhlf0M)**
   - You can watch video demonstration of our app by clicking the link above.
 
 #### Application Features
