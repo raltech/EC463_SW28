@@ -66,10 +66,12 @@ With the default setting, you should be able to access the web app by going to h
 
 ## Testing Application
 - [x] Support Google SSO
+  ![Google SSO](client/static/Google_SSO.png)
 - [x] Receive and display temperature and humidity from a sensor
 - [x] Plot historical sensor data
 - [x] Users have access and can see the weather information for the their location
 - [x] Multiple people can access the app
+  ![6 different users accessing all at once](client/static/multi_access.png)
 - [x] Multiple sources of temperature and humidity
   - Users can easily add/delete sensors within app
 - [x] Multiple temperature or humidity sources can be associated with a user
@@ -83,3 +85,4 @@ Used library and frameworks
   - https://openweathermap.org/api
 - Google OAuth 2.0 Client
    - https://console.cloud.google.com/apis/credentials 
+
