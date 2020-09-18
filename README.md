@@ -3,31 +3,72 @@ This repo is for EC463 Mini software project.
 We (Hayato Nakamura and Quinn Meurer) are implementing Home Sensor application using mainly Python/Flask and some JavaScript.
 
 ## Home Sensor
+- [Live Demo](https://sw-miniproject.herokuapp.com/)  
+  - Our app is hosted using Heroku platform, and you can access it by clicking the link above.
+- [Video Demo](https://youtu.be/r9fRvjjXQ_k)
+  - You can watch video demonstration of our app by clicking the link above.
 
-[Live Demo](https://sw-miniproject.herokuapp.com/)  
-[Video Demo](https://youtu.be/r9fRvjjXQ_k)
-
-### Client side
+### Application Features
+#### Client side
 - Single Sign On for account management
 - Access to the server database to register new sensors and delete existing sensors
-- Get real-time sensor data
-- Get current weather data
-- View graphs of sensor data
-- View account info in profile page
+- Display real-time sensor data in home page.
+- Display plot of the historical sensor data in home page.
+- Display current weather data 
+  - Users can update their location anytime in profile page.
+- View account info associated with google account in profile page.
+- Logout button to safely log out from our app.
 
-### Server side
+#### Server side
 - stores list of sensors and their associated user ID in a SQLITE3 database
 - provide API to client app to get sensors and add/delete sensors
 - serve web pages to client
 - establish websocket connection with client to communicate stream of sensor data in real time
 
 ## How to run
-- 
+**Note: our app is hosted [here](https://sw-miniproject.herokuapp.com/) so that you can play with it without installing**
+After cloning our repo into your local computer, install necessary libraries listed in requirement.txt.
+Then, create a run.sh file under server folder with the following content:
+```
+export FN_AUTH_REDIRECT_URI=http://127.0.0.1:8040/google/auth
+export FN_BASE_URI=http://127.0.0.1:8040
+export FN_CLIENT_ID=INSERT_Google_OAuth_2.0_Client_ID
+export FN_CLIENT_SECRET=INSERT_Google_OAuth_2.0_Client_Secret_Key
+export WEATHER_API_KEY=INSERT_Openweathermap_API_KEY
+
+export FLASK_APP=app.py
+export FLASK_DEBUG=1
+export FN_FLASK_SECRET_KEY=1234
+
+python3 -m flask run -p 8040
+```
+In order to run our app, you need to have two api keys:
+1. OpenWeatherMap
+   - https://openweathermap.org/api
+2. Google OAuth 2.0 Client
+   - https://console.cloud.google.com/apis/credentials 
+
+Once you set up your account, replace 
+```
+export FN_CLIENT_ID=INSERT_Google_OAuth_2.0_Client_ID
+export FN_CLIENT_SECRET=INSERT_Google_OAuth_2.0_Client_Secret_Key
+export WEATHER_API_KEY=INSERT_Openweathermap_API_KEY
+```
+with your IDs and Keys.
+
+Finally, you can type 
+```
+cd server
+. run.sh
+```
+in your terminal to run our app.
+With the default setting, you should be able to access the web app by going to http://127.0.0.1:8040 in your browser.
 
 ## Acknowledgement
-used library and frameworks
+Used library and frameworks
 - flask (server and client)
-- httplib2 (client)
 - plotly (client)
-- openweathermap.org
-- atlastk (removed)
+- OpenWeatherMap API
+  - https://openweathermap.org/api
+- Google OAuth 2.0 Client
+   - https://console.cloud.google.com/apis/credentials 
